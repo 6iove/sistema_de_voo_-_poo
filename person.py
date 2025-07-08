@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from faker import Faker
 
 class Person(ABC):
     # construtor da classe person com dois parâmetros, armazenados como atributo da instância
@@ -43,4 +44,23 @@ class Employee(Person):
     def type(self):
         return "Employee"
    
+'''gerando passageiros e funcionarios'''
 
+faker = Faker('pt-BR')
+
+def create_passengers():
+    passengers = []
+    for p in range(250):
+        name = faker.name()
+        cpf = faker.cpf().replace('.', '').replace('-', '')
+        passengers.append(Passenger(name, cpf))
+    return passengers
+
+def create_employees():
+    positions = ["pilot", "copilot", "flight attendant"]
+    employees = []
+    for position in positions:
+        name = faker.name()
+        cpf = faker.cpf().replace('.', '').replace('-', '')
+        employees.append(Employee(name, cpf, position))
+    return employees
